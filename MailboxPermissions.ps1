@@ -8,15 +8,15 @@ Write-Host "Checking for correct inputs.."
 
 if ($accessRights -eq "FullAccess") {
     Write-Output "Successful Input for FullAccess.. Now configuring"
-    #Add-MailboxPermission -Identity $mailbox -User $requestersMailbox -AccessRights $accessRights
+    Add-MailboxPermission -Identity $mailbox -User $requestersMailbox -AccessRights $accessRights
 }
 elseif ($accessRights -eq "SendAs") {
     Write-Output "Successful Input for Send As.. Now configuring"
-    #Add-MailboxPermission -Identity $mailbox -User $requestersMailbox -AccessRights $accessRights
+    Add-MailboxPermission -Identity $mailbox -User $requestersMailbox -AccessRights $accessRights
 }
 elseif ($accessRights -eq "SendonBehalf") {
     Write-Output "Successful Input for SendonBehalf.. Now configuring"
-    #Set-Mailbox -Identity $mailbox -GrantSendOnBehalfTo @{Add=$requestersMailbox}
+    Set-Mailbox -Identity $mailbox -GrantSendOnBehalfTo @{Add=$requestersMailbox}
 }
 #Ask the user again for another input
 else {
@@ -38,5 +38,5 @@ while ($delay -ge 0)
 }
 
 Write-Host "Checking our work.. "
-#$getMailboxpermissions = Get-MailboxPermission -Identity $mailbox -User $requestersMailbox
-#Write-Output ($getMailboxpermissions)
+$getMailboxpermissions = Get-MailboxPermission -Identity $mailbox -User $requestersMailbox
+Write-Output ($getMailboxpermissions)
