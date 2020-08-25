@@ -5,6 +5,9 @@
 #Provided numbered choices to the user to enter to prevent misspellings.
 #Add other functions, like email forwarding and auto reply
 #Change if, elseif, else to switch statements. - Completed.
+#Distribution Group
+#Keep the session open to run multiple commands and then end the session
+#Retrieve information (What does this user have access to)
 
 #Open Powershell as Administrator
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { 
