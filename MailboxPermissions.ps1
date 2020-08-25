@@ -3,6 +3,7 @@
 #Connect to EAC with new authenctation built in the script.
 #Provided numbered choices to the user to enter to prevent and misspellings.
 #Add other functions, like email forwarding and auto reply
+#Change if, elseif, else to switch statements.
 
 
 $mailbox = Read-Host "Who's mailbox do we need get access to?"
