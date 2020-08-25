@@ -1,3 +1,10 @@
+#Future configurations.
+#-----------------------
+#Connect to EAC with new authenctation built in the script.
+#Provided numbered choices to the user to enter to prevent and misspellings.
+#Add other functions, like email forwarding and auto reply
+
+
 $mailbox = Read-Host "Who's mailbox do we need get access to?"
 $requestersMailbox = Read-Host "Who needs access to this mailbox"
 $accessRights = Read-Host "Which access level (FullAccess, SendAs, SendonBehalf)"
