@@ -8,6 +8,8 @@
 #Distribution Group
 #Keep the session open to run multiple commands and then end the session
 #Retrieve information (What does this user have access to)
+#Offboarding steps
+#Pause the script to make sure that there isn't an error, prmopt the user for yes or no.
 
 #Open Powershell as Administrator
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { 
