@@ -4,7 +4,7 @@
 #Connect to EAC with new authenctation built in the script.
 #Provided numbered choices to the user to enter to prevent misspellings.
 #Add other functions, like email forwarding and auto reply
-#Change if, elseif, else to switch statements.
+#Change if, elseif, else to switch statements. - Completed.
 
 #Open Powershell as Administrator
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { 
@@ -15,38 +15,41 @@ if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 #https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7
 #https://docs.microsoft.com/en-us/powershell/exchange/connect-to-exchange-online-powershell?view=exchange-ps
 
-Import-Module ExchangeOnlineManagement
-Set-ExecutionPolicy Unrestricted -Scope Process
-$UserCredential = Get-Credential
-Connect-ExchangeOnline -Credential $UserCredential
+#Import-Module ExchangeOnlineManagement
+#Set-ExecutionPolicy Unrestricted -Scope Process
+#$UserCredential = Get-Credential
+#Connect-ExchangeOnline -Credential $UserCredential
 
 $mailbox = Read-Host "Who's mailbox do we need get access to?"
 $requestersMailbox = Read-Host "Who needs access to this mailbox"
 $accessRights = Read-Host "Which access level (FullAccess, SendAs, SendonBehalf)"
 $delay = 5
 
-
 #Testing stored variables in IF statement
 Write-Host "Checking for correct inputs.."
 
-if ($accessRights -eq "FullAccess") {
-    Write-Output "Successful Input for FullAccess.. Now configuring"
-    #Add-MailboxPermission -Identity $mailbox -User $requestersMailbox -AccessRights $accessRights
-}
-elseif ($accessRights -eq "SendAs") {
-    Write-Output "Successful Input for Send As.. Now configuring"
-    #Add-MailboxPermission -Identity $mailbox -User $requestersMailbox -AccessRights $accessRights
-}
-elseif ($accessRights -eq "SendonBehalf") {
-    Write-Output "Successful Input for SendonBehalf.. Now configuring"
-    #Set-Mailbox -Identity $mailbox -GrantSendOnBehalfTo @{Add=$requestersMailbox}
-}
-#Ask the user again for another input
-else {
-    Write-Output """$accessRights"" Is an incorrect input, running script again."
-    $scriptToRun = $psScriptRoot+".\MailboxPermissions.ps1"
-    Invoke-Expression -Command $scriptToRun
-    break
+Switch ($accessRights) {
+    FullAccess {
+        Write-Output "Successful Input for FullAccess.. Now configuring"
+        #Add-MailboxPermission -Identity $mailbox -User $requestersMailbox -AccessRights $accessRights
+    }
+    SendAs {
+        Write-Output "Successful Input for Send As.. Now configuring"
+        #Add-MailboxPermission -Identity $mailbox -User $requestersMailbox -AccessRights $accessRights
+    }
+
+    SendonBehalf {
+            Write-Output "Successful Input for SendonBehalf.. Now configuring"
+            #Set-Mailbox -Identity $mailbox -GrantSendOnBehalfTo @{Add=$requestersMailbox}
+    }
+
+    Default {
+        Write-Output """$accessRights"" Is an incorrect input, running script again."
+        $scriptToRun = $psScriptRoot+".\MailboxPermissions.ps1"
+        Invoke-Expression -Command $scriptToRun
+        break
+    }
+
 }
 
 Write-Host ""$requestersMailbox" "$accessRights" is now configured!"
@@ -57,7 +60,6 @@ while ($delay -ge 0)
   Write-Host "Seconds Remaining: $($delay)"
   start-sleep 1
   $delay -= 1
-  
 }
 
 Write-Host "Checking our work.. "
