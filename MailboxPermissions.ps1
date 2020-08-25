@@ -1,10 +1,15 @@
 #Future Updates.
 #-----------------------
+#Open Powerhsell as Administrator - Completed.
 #Connect to EAC with new authenctation built in the script.
 #Provided numbered choices to the user to enter to prevent misspellings.
 #Add other functions, like email forwarding and auto reply
 #Change if, elseif, else to switch statements.
 
+#Open Powershell as Administrator
+if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { 
+    Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs; exit 
+    }
 
 $mailbox = Read-Host "Who's mailbox do we need get access to?"
 $requestersMailbox = Read-Host "Who needs access to this mailbox"
