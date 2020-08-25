@@ -1,7 +1,7 @@
-#Future configurations.
+#Future Updates.
 #-----------------------
 #Connect to EAC with new authenctation built in the script.
-#Provided numbered choices to the user to enter to prevent and misspellings.
+#Provided numbered choices to the user to enter to prevent misspellings.
 #Add other functions, like email forwarding and auto reply
 #Change if, elseif, else to switch statements.
 
