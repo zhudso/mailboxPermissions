@@ -1,19 +1,18 @@
 #Future Updates.
-#-----------------------
-#Create an AD Test environment: https://azure.microsoft.com/en-us/free/?ref=portal
+#------------------------------------------------------------------------------------------------------------------------------------------
+#Create an AD Test environment: https://azure.microsoft.com/en-us/free/?ref=portal -Completed
 #Open Powerhsell as Administrator - Completed.
-#Connect to EAC with new authenctation built in the script.
+#Connect to EAC built in the script. - Completed
 #Provided numbered choices to the user to enter to prevent misspellings. -Completed.
-#Add other functions, like email forwarding and auto reply
 #Change if, elseif, else to switch statements. - Completed.
-#Distribution Group stuff
+#Add other functions, like email forwarding and auto reply, Distribution Group stuff, compromised accounts stuff, checking for inbox rules, email forwarding.
 #Keep the session open to run multiple commands and then end the session -Completed
 #Retrieve information (What does this user have access to)
-#Offboarding steps
+#Offboarding steps "I'm creating a new file and calling that file"
+#Onboarding Steps "I'm creating a new file and calling that file"
 #Pause the script to make sure that there isn't an error, prompt the user for yes or no -Completed.
-#Call another file to open On-boarding or Off-boarding script.
-#Provide default file save location that creates a unique file name ($exportCSV = $psScriptRoot+"\mailboxPermissions.ps1")
-#compromised accounts, checking for inbox rules, email forwarding. 
+#Provide default file save location for exported information that creates a unique file name ($exportCSV = $psScriptRoot+"\mailboxPermissions.ps1") 
+#------------------------------------------------------------------------------------------------------------------------------------------
 
 <# Open Powershell as Administrator #>
 if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { 
@@ -82,8 +81,6 @@ $runUsernameCheck =  Do
 }
 While ($getUsername -eq $null)
 
-
-
 Switch ($accessRights) {
     1 {
         $messageMailbox = Write-Host "Which recipient do we need Full Access " -NoNewline; Write-Host -ForegroundColor Red "From " -NoNewline; Write-Host "(username@domain.com or Firstname Lastname)"
@@ -104,25 +101,7 @@ Switch ($accessRights) {
 }
         while ($true)
         
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    }  
     
     2 {
         Write-Host "Which recipient do we need Send As " -NoNewline; Write-Host -ForegroundColor Red "From " -NoNewline; Write-Host "(username@domain.com or Firstname Lastname)"
