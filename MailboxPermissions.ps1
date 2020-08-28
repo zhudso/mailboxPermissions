@@ -14,6 +14,7 @@
 #Call another file to open On-boarding or Off-boarding script.
 #Provide default file save location that creates a unique file name ($exportCSV = $psScriptRoot+"\mailboxPermissions.ps1")
 #compromised accounts, checking for inbox rules, email forwarding. 
+#Possibly include a progress bar? https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/write-progress?view=powershell-7
 
 <# Open Powershell as Administrator #>
  if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) { 
