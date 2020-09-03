@@ -7,6 +7,7 @@
 #Provide an option to save old and new configurations to clipboard.
 #------------------------------------------------------------------
 
+
 <# -------------- START OF SCRIPT -------------- #>
 
 <# Checking for Active Session, if False, then start a new one and loop until successful sign in. #>
