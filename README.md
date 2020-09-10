@@ -1,4 +1,4 @@
-# commonEACTasks: A powershell script to help configure common Exchange Admin Center Tasks
+# mailboxPermissions: A powershell script to help configure common Exchange Admin Center Tasks
 
 <h2 align="left"> <a href="https://github.com/zhudso/mailboxPermissions/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/zhudso/mailboxPermissions"></a> <a href="https://github.com/zhudso/mailboxPermissions/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/zhudso/mailboxPermissions"></a> <a href="https://github.com/zhudso/mailboxPermissions/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/zhudso/mailboxPermissions"></a> <a href="https://github.com/zhudso/mailboxPermissions"><img alt="GitHub license" src="https://img.shields.io/github/license/zhudso/mailboxPermissions"></a> </h2>
 
