@@ -50,8 +50,6 @@ while ($successfulLogon -eq $null)
 
 <# Welcome Message #>
 $number = Read-Host "
-Welcome to my EAC Powershell Script: Written by Zach Hudson
-
 You can cancel the script at any time with Ctrl C Twice
 
 Configuration Options
@@ -62,8 +60,6 @@ Configuration Options
 4. Email Forwarding
 5. Distribution Groups
 6. Converting to a Shared Mailbox
-7. On-boarding (Currently unavaiable)
-8. Off-boarding (Currently unavaiable)
 ---------------------------
 Number"
 
@@ -159,7 +155,7 @@ Switch ($number) {
                     Get-Mailbox $requestersMailbox | Select-Object Name,PrimarySMTPAddress,RecipientType
 
             <# Pulling previous access rights.. #>
-            Write-Host -NoNewline; Write-Host -ForegroundColor Yellow "MESSAGE: Pulling previous access.. if nothing comes back then there are currently no mailbox permissions to remove"
+            Write-Host -NoNewline; Write-Host -ForegroundColor Yellow "Pulling previous access.. if nothing comes back then there are currently no mailbox permissions to remove"
                 Get-RecipientPermission -Identity $userMailbox -Trustee $requestersMailbox
 
             <# Confirming that both users are valid and previous access is actually configured. #>
@@ -215,7 +211,7 @@ Switch ($number) {
                         Get-Mailbox $requestersMailbox | Select-Object Name,PrimarySMTPAddress,RecipientType
         
                 <# Pulling previous access rights.. #>
-                Write-Host -NoNewline; Write-Host -ForegroundColor Yellow "MESSAGE: Pulling previous access.. if nothing comes back then there are currently no mailbox permissions to remove"
+                Write-Host -NoNewline; Write-Host -ForegroundColor Yellow "Pulling previous access.. if nothing comes back then there are currently no mailbox permissions to remove"
                     Get-Mailbox -Identity $userMailbox | Select-Object DisplayName, GrantSendonBehalfTo | fl
         
                 <# Confirming that both users are valid and previous access is actually configured. #>
@@ -362,7 +358,7 @@ Number"
                             Set-DistributionGroup -id $distroGroup -RequireSenderAuthenticationEnabled $False
                             }
                         elseif ($userConfirmation -eq "No" -or $userConfirmation -eq "N") {
-                            Set-DistributionGroup -id $distroGroup -RequireSenderAuthenticationEnabled $True
+                            break <# This is set by default #>
                         }
                         else {Write-Host -ForegroundColor Red "Invalid Input"}
 
@@ -371,6 +367,7 @@ Number"
                 if ($addingUsers -eq "Y" -or $addingUsers -eq "Yes") {
                     Write-Host -ForegroundColor Green "You can add multiple users with , between each user."
                     Write-Host -ForegroundColor Yellow "Username or Email: " -nonewline; $requestersMailbox = Read-Host
+                    <# Loop through each user #>
                     $requestersMailbox | ForEach-Object {
                         $RequestersMailbox = $requestersMailbox.Replace(" ", "") -split ","
                         foreach ($requestersMailbox in $RequestersMailbox) {
@@ -387,7 +384,7 @@ Number"
                 break
                 }<# if statement end #>
                 elseif ($addingUsers -eq "N" -or $addingUsers -eq "No") {
-                    Write-Host "No users will be added.."
+                    Write-Host "No users will be added."
                     break
                 }
                 else {
@@ -399,7 +396,7 @@ Number"
             elseif ($configurationType -eq "4") {
                 Write-Host -ForegroundColor Yellow "Pulling a list of current Distribution Groups.."
                 Get-DistributionGroup | select Name,PrimarySMTPAddress
-                Write-Host -ForegroundColor Yellow "What is the name/email of the group that we want to remove?" -NoNewLine; $distroGroup = Read-Host
+                Write-Host -ForegroundColor Yellow "What is the name/email of the group that we want to remove? " -NoNewLine; $distroGroup = Read-Host
                 Get-DistributionGroup -id $distroGroup | select Name,PrimarySmtpAddress -ErrorAction Continue
 
             Write-Host -ForegroundColor Yellow "Are you sure you want to remove this group and it's members? (Y/N): " -NoNewline; $userConfirmation = Read-Host 
@@ -415,7 +412,7 @@ Number"
     6 { <# Shared Mailbox #>
         do {
             <# Gathering user account information.. #>
-            $userMailbox = Read-Host "Which mailbox do we want to convert to shared?"
+            Write-Host -ForegroundColor Yellow "Which mailbox do we want to convert to shared? " $userMailbox = Read-Host
                 Get-Mailbox -id $userMailbox | Select-Object Name,PrimarySMTPAddress,RecipientType
 
             <# Convermation that the mailbox is found #>
@@ -425,8 +422,8 @@ Number"
             if ($userConfirmation -eq "Y" -or $userConfirmation -eq "Yes") {
                 Write-Host -ForegroundColor Yellow "Configuring to sharedmailbox.."
                     Set-Mailbox -id $userMailbox -Type Shared
-                Write-Host -ForegroundColor Green "Waiting for new changes to reflect.."
-                <# Setting 10 Sec Timer #>
+                Write-Host -ForegroundColor Green "Completed, waiting for new changes to reflect.."
+                <# Setting 10 Sec Timer to reflect the new changes #>
                 $delay = 10
                 while ($delay -ge 0) {
                     Write-Host "Seconds Remaining: $($delay)"
@@ -444,13 +441,13 @@ Number"
 
     }
     7 {  <# On-boarding #>
-        $scriptToOpen = $psScriptRoot+"\Onboarding_Script.ps1"
-        Invoke-Expression -Command $scriptToOpen
+        <# $scriptToOpen = $psScriptRoot+"\Onboarding_Script.ps1"
+        Invoke-Expression -Command $scriptToOpen #>
     exit
     }
     8 { <# Off-boarding #>
-        $scriptToOpen = $psScriptRoot+"\Offboarding_Script.ps1"
-        Invoke-Expression -Command $scriptToOpen
+        <# $scriptToOpen = $psScriptRoot+"\Offboarding_Script.ps1"
+        Invoke-Expression -Command $scriptToOpen #>
     exit
     }
     Default {      
