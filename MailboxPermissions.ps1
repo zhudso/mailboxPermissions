@@ -412,7 +412,7 @@ Number"
     6 { <# Shared Mailbox #>
         do {
             <# Gathering user account information.. #>
-            Write-Host -ForegroundColor Yellow "Which mailbox do we want to convert to shared? " $userMailbox = Read-Host
+            Write-Host -ForegroundColor Yellow "Which mailbox do we want to convert to shared? " -NoNewLine; $userMailbox = Read-Host
                 Get-Mailbox -id $userMailbox | Select-Object Name,PrimarySMTPAddress,RecipientType
 
             <# Convermation that the mailbox is found #>
@@ -456,7 +456,7 @@ Number"
 
 <# End Session or keep alive #>
 do {
-    Write-Host -ForegroundColor Yellow "Would you like to end the session? (Y/N)"
+    Write-Host -ForegroundColor Yellow "Would you like to end this session? (Y/N)"
     $scriptSession = Read-Host "Input"
 
 if ($scriptSession -eq "Yes" -or $scriptSession -eq "Y") {
